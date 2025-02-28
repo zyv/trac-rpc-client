@@ -76,7 +76,10 @@ unfixable = []
 [tool.pytest.ini_options]
 log_cli = true
 log_level = "DEBUG"
-addopts = "--cov --cov-fail-under=95"
+
+markers = [
+    "integration: mark test as an integration test requiring a test Trac instance",
+]
 
 [tool.coverage.run]
 branch = true

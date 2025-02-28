@@ -1,0 +1,18 @@
+{
+  "result": [
+    [
+      "TracXMLRPC-1.2.0.dev0-py3.13.egg",
+      "Test attachment",
+      87904,
+      {
+        "__jsonclass__": [
+          "datetime",
+          "2025-02-27T13:38:04.870563"
+        ]
+      },
+      "admin"
+    ]
+  ],
+  "error": null,
+  "id": null
+}

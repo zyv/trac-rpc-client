@@ -1,0 +1,71 @@
+{
+  "result": [
+    [
+      {
+        "__jsonclass__": [
+          "datetime",
+          "2025-02-27T13:37:11.171873"
+        ]
+      },
+      "admin",
+      "comment",
+      "1",
+      "Test comment",
+      1
+    ],
+    [
+      {
+        "__jsonclass__": [
+          "datetime",
+          "2025-02-27T13:37:11.171873"
+        ]
+      },
+      "admin",
+      "owner",
+      "somebody",
+      "admin",
+      1
+    ],
+    [
+      {
+        "__jsonclass__": [
+          "datetime",
+          "2025-02-27T13:37:11.171873"
+        ]
+      },
+      "admin",
+      "status",
+      "new",
+      "accepted",
+      1
+    ],
+    [
+      {
+        "__jsonclass__": [
+          "datetime",
+          "2025-02-27T13:38:04.870563"
+        ]
+      },
+      "admin",
+      "attachment",
+      "",
+      "TracXMLRPC-1.2.0.dev0-py3.13.egg",
+      0
+    ],
+    [
+      {
+        "__jsonclass__": [
+          "datetime",
+          "2025-02-27T13:38:04.870563"
+        ]
+      },
+      "admin",
+      "comment",
+      "",
+      "Test attachment",
+      0
+    ]
+  ],
+  "error": null,
+  "id": null
+}

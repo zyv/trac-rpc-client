@@ -1,0 +1,11 @@
+{
+  "result": [
+    "blocker",
+    "critical",
+    "major",
+    "minor",
+    "trivial"
+  ],
+  "error": null,
+  "id": null
+}

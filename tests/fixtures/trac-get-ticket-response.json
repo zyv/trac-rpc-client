@@ -1,0 +1,47 @@
+{
+  "result": [
+    1,
+    {
+      "__jsonclass__": [
+        "datetime",
+        "2025-02-27T13:36:35.856566"
+      ]
+    },
+    {
+      "__jsonclass__": [
+        "datetime",
+        "2025-02-27T13:37:11.171873"
+      ]
+    },
+    {
+      "summary": "Test summary",
+      "reporter": "admin",
+      "owner": "admin",
+      "description": "Test description\r\n\r\nSecond line",
+      "type": "defect",
+      "status": "accepted",
+      "priority": "major",
+      "milestone": "",
+      "component": "component1",
+      "version": "",
+      "resolution": "",
+      "keywords": "test1 test2,test3",
+      "cc": "",
+      "time": {
+        "__jsonclass__": [
+          "datetime",
+          "2025-02-27T13:36:35.856566"
+        ]
+      },
+      "changetime": {
+        "__jsonclass__": [
+          "datetime",
+          "2025-02-27T13:37:11.171873"
+        ]
+      },
+      "_ts": "1740663431171873"
+    }
+  ],
+  "error": null,
+  "id": null
+}

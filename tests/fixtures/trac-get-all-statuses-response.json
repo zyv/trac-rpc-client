@@ -1,0 +1,11 @@
+{
+  "result": [
+    "accepted",
+    "assigned",
+    "closed",
+    "new",
+    "reopened"
+  ],
+  "error": null,
+  "id": null
+}

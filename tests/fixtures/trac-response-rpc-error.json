@@ -1,0 +1,9 @@
+{
+  "error": {
+    "message": "RPC method \"ticket.wiki_to_html\" not found",
+    "code": -32601,
+    "name": "JSONRPCError"
+  },
+  "result": null,
+  "id": null
+}
