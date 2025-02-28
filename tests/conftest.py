@@ -1,7 +1,8 @@
 import pytest
-from utils import TRAC_RPC_URL
 
 from trac_rpc.client import ApiClient
+
+from .utils import TRAC_RPC_URL
 
 
 @pytest.fixture
