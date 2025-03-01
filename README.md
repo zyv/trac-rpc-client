@@ -84,23 +84,4 @@ class TracTicket(TracTicketBase):
 
 ## Setting up test Trac server
 
-```shell
-uv tool install --with passlib trac
-
-# admin/admin
-echo "admin:{SHA}0DPiKuNIrrVmD8IUCuw1hQxNqZc=" > $HOME/src/trac-test/htpasswd
-
-uvx --from trac trac-admin $HOME/src/trac-test permission add admin TRAC_ADMIN
-
-uvx --from trac tracd --auto-reload --single-env --port 8000 \
-  --basic-auth="trac-test,$HOME/src/trac-test/htpasswd," \
-    $HOME/src/trac-test
-
-# Download source and build an egg
-# https://trac-hacks.org/wiki/XmlRpcPlugin
-uvx --with setuptools python setup.py bdist_egg 
-
-# Upload TracXMLRPC-1.2.0.dev0-py3.13.egg to Trac
-uvx --from trac trac-admin trac-admin . config set components tracrpc.* enabled   
-uvx --from trac trac-admin trac-admin . permission add authenticated XML_RPC 
-```
+See [GitHub Actions workflow](.github/workflows/ci.yml) for integration tests.

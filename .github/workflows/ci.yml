@@ -1,11 +1,17 @@
 name: CI
 on: [ push, pull_request ]
 
+env:
+  TRAC_VERSION: 1.6
+  TRAC_XMLRPC_BRANCH: https://trac-hacks.org/svn/xmlrpcplugin/trunk/
+
 jobs:
   lint-and-test:
-    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
     runs-on: ubuntu-latest
     timeout-minutes: 5
+
+    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
+
     strategy:
       fail-fast: false
       matrix:
@@ -26,4 +32,38 @@ jobs:
 
       - run: uv run ruff format --diff
 
-      - run: uv run pytest -m 'not integration' --cov
+      - run: sudo apt-get install -y subversion
+
+      - name: Set up local Trac test server
+        env:
+          TRAC_ENV: trac-test
+        run: |
+          uv tool install --with passlib trac==${{ env.TRAC_VERSION }}
+
+          uvx --from trac trac-admin ${{ env.TRAC_ENV }} initenv 'Test Project' sqlite:db/trac.db
+
+          echo "admin:{SHA}0DPiKuNIrrVmD8IUCuw1hQxNqZc=" > ${{ env.TRAC_ENV }}/htpasswd
+          uvx --from trac trac-admin ${{ env.TRAC_ENV }} permission add admin TRAC_ADMIN
+
+          svn checkout ${{ env.TRAC_XMLRPC_BRANCH }} xmlrpcplugin
+
+          pushd xmlrpcplugin
+            uvx --with setuptools python setup.py bdist_egg
+            cp dist/*.egg ../${{ env.TRAC_ENV }}/plugins
+          popd
+
+          uvx --from trac trac-admin ${{ env.TRAC_ENV }} config set components tracrpc.* enabled
+          uvx --from trac trac-admin ${{ env.TRAC_ENV }} permission add authenticated XML_RPC
+
+          uvx --from trac tracd \
+            --single-env \
+            --port 8000 \
+            --daemonize \
+            --pidfile $(pwd)/tracd.pid \
+            --basic-auth="${{ env.TRAC_ENV }},$(pwd)/${{ env.TRAC_ENV }}/htpasswd," \
+              $(pwd)/${{ env.TRAC_ENV }}
+
+      - run: uv run pytest --cov --cov-fail-under=95
+
+      - run: kill $(cat tracd.pid)
+        if: always()
