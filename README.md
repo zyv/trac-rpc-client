@@ -2,6 +2,11 @@
 
 Modern, Pythonic and type-safe Trac RPC API client.
 
+> [!NOTE]
+> This package was developed primarily to satisfy my personal migration needs and as such covers only the **read** interface of the API!
+>
+> Please feel free to contact me for complex migration projects from Trac and/or custom development needs. High quality contributions that follow the library structure and donations are also much appreciated.
+
 ## Installation
 
 ```shell
