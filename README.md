@@ -31,6 +31,11 @@ TracApiVersion(epoch=1, major=2, minor=0)
 datetime.datetime(2025, 2, 27, 13, 37, 11, 171873, tzinfo=TzInfo(UTC))
 ```
 
+> [!IMPORTANT]
+> Trac APIs (e.g. `query_tickets`) do not return IDs and/or objects sorted in alphanumeric order!
+>
+> They can either be returned in a custom order (such as priority levels) or grouped by certain fields (such as ticket IDs). If you want to iterate on the objects in a particular order, always remember to sort them appropriately after you call the API.
+
 ### Customizing models
 
 #### Changing default string type

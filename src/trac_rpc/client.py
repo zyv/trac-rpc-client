@@ -145,7 +145,7 @@ class ApiClient:
             *((f"page={page_number}",) if page_number is not None else ()),
             f"max={per_page}",
         )
-        return sorted(self._request(TracRequest(method="ticket.query", params=["&".join(pieces)]), list[int]))
+        return self._request(TracRequest(method="ticket.query", params=["&".join(pieces)]), list[int])
 
     def get_ticket_attachments(self, ticket_id: int) -> TracTicketAttachments:
         """

@@ -25,7 +25,7 @@ def test_query_tickets(kwargs: dict, expected: str, api_client: ApiClient, respx
     respx_mock.post().mock(
         return_value=httpx.Response(
             status_code=httpx.codes.OK,
-            text="""{"error": null, "result": [1, 2, 3], "id": null}""",
+            text="""{"error": null, "result": [3, 2, 1], "id": null}""",
         )
     )
 
@@ -33,7 +33,7 @@ def test_query_tickets(kwargs: dict, expected: str, api_client: ApiClient, respx
         (param,) = json.loads(respx_mock.calls.last.request.content)["params"]
         return param
 
-    assert api_client.query_tickets(**kwargs) == [1, 2, 3]
+    assert sorted(api_client.query_tickets(**kwargs)) == [1, 2, 3]
     assert get_last_request_params() == expected
 
 
