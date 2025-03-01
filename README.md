@@ -99,6 +99,16 @@ class TracTicket(TracTicketBase):
     version: Annotated[TracOptionalField[str], AfterValidator(validate_version)]
 ```
 
-## Setting up test Trac server
+## Development
+
+### Setting up test Trac server
 
 See [GitHub Actions workflow](.github/workflows/ci.yml) for integration tests.
+
+### Releases
+
+To release a new version and publish it to PyPI:
+
+* Bump version with `hatch` and commit
+  * `hatch version minor` or `hatch version patch`
+* Create GitHub release (and tag)
