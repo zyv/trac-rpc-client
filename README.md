@@ -1,5 +1,12 @@
 # Trac RPC API client
 
+[![PyPI License](https://img.shields.io/pypi/l/trac-rpc-client)](https://github.com/zyv/trac-rpc-client/blob/main/LICENSE)
+[![PyPI project](https://img.shields.io/pypi/v/trac-rpc-client.svg?logo=python&logoColor=edb641)](https://pypi.python.org/pypi/ruff)
+![Python versions](https://img.shields.io/pypi/pyversions/trac-rpc-client.svg?logo=python&logoColor=edb641)
+[![Pydantic v2](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/pydantic/pydantic/main/docs/badge/v2.json)](https://docs.pydantic.dev/latest/contributing/#badges)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![CI](https://github.com/zyv/trac-rpc-client/workflows/CI/badge.svg)](https://github.com/zyv/trac-rpc-client/actions)
+
 Modern, Pythonic and type-safe Trac RPC API client.
 
 > [!NOTE]
