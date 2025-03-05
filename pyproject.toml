@@ -44,7 +44,6 @@ path = "src/trac_rpc/__about__.py"
 line-length = 120
 target-version = "py313"
 
-
 [tool.ruff.lint]
 select = [
     "C4", # flake8-comprehensions

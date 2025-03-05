@@ -77,7 +77,7 @@ def test_event_hooks_default(monkeypatch: MonkeyPatch, respx_mock: respx.mock):
 
 
 def test_raise_for_status(api_client: ApiClient, respx_mock: respx.mock):
-    respx_mock.post(url=TRAC_RPC_URL).mock(return_value=httpx.Response(status_code=httpx.codes.BAD_GATEWAY))
+    respx_mock.post(url=TRAC_RPC_URL) % httpx.codes.BAD_GATEWAY
 
     with pytest.raises(httpx.HTTPStatusError):
         api_client.get_api_version()
@@ -98,11 +98,9 @@ def test_event_hooks_override(monkeypatch: MonkeyPatch, respx_mock: respx.mock):
 
 
 def test_raise_on_error(api_client: ApiClient, respx_mock: respx.mock):
-    respx_mock.post(TRAC_RPC_URL).mock(
-        return_value=httpx.Response(
-            status_code=httpx.codes.OK,  # sic!
-            text=get_fixture("trac-response-rpc-error.json"),
-        )
+    respx_mock.post(TRAC_RPC_URL).respond(
+        status_code=httpx.codes.OK,  # sic!
+        text=get_fixture("trac-response-rpc-error.json"),
     )
 
     with pytest.raises(TracRpcError) as excinfo:
@@ -116,24 +114,14 @@ def test_raise_on_error(api_client: ApiClient, respx_mock: respx.mock):
 
 
 def test_invalid_success_response(api_client: ApiClient, respx_mock: respx.mock):
-    respx_mock.post().mock(
-        return_value=httpx.Response(
-            status_code=httpx.codes.OK,
-            text="""{"error": null, "result": null, "id": null}""",
-        )
-    )
+    respx_mock.post().respond(text="""{"error": null, "result": null, "id": null}""")
 
     with pytest.raises(ValidationError, match=r".+ invalid success response .+"):
         api_client.get_api_version()
 
 
 def test_invalid_error_response(api_client: ApiClient, respx_mock: respx.mock):
-    respx_mock.post().mock(
-        return_value=httpx.Response(
-            status_code=httpx.codes.OK,
-            text="""{"error": {"message": "", "code": 123, "name": ""}, "result": null, "id": 123}""",
-        )
-    )
+    respx_mock.post().respond(text="""{"error": {"message": "", "code": 123, "name": ""}, "result": null, "id": 123}""")
 
     with pytest.raises(ValidationError, match=r".+ invalid error response .+"):
         api_client.get_api_version()

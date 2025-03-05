@@ -1,7 +1,6 @@
 import json
 from datetime import datetime
 
-import httpx
 import pytest
 import respx
 
@@ -22,12 +21,7 @@ from .utils import get_fixture
     ],
 )
 def test_query_tickets(kwargs: dict, expected: str, api_client: ApiClient, respx_mock: respx.mock):
-    respx_mock.post().mock(
-        return_value=httpx.Response(
-            status_code=httpx.codes.OK,
-            text="""{"error": null, "result": [3, 2, 1], "id": null}""",
-        )
-    )
+    respx_mock.post().respond(text="""{"error": null, "result": [3, 2, 1], "id": null}""")
 
     def get_last_request_params() -> str:
         (param,) = json.loads(respx_mock.calls.last.request.content)["params"]
@@ -38,12 +32,7 @@ def test_query_tickets(kwargs: dict, expected: str, api_client: ApiClient, respx
 
 
 def test_get_ticket_attachments(api_client: ApiClient, respx_mock: respx.mock):
-    respx_mock.post().mock(
-        return_value=httpx.Response(
-            status_code=httpx.codes.OK,
-            text=get_fixture("trac-get-ticket-attachments-response.json"),
-        )
-    )
+    respx_mock.post().respond(text=get_fixture("trac-get-ticket-attachments-response.json"))
 
     (attachment,) = api_client.get_ticket_attachments(1)
     assert respx_mock.calls.last.request.content == b'{"id":null,"method":"ticket.listAttachments","params":[1]}'
@@ -58,12 +47,7 @@ def test_get_ticket_attachments(api_client: ApiClient, respx_mock: respx.mock):
 
 
 def test_get_ticket_changelog(api_client: ApiClient, respx_mock: respx.mock):
-    respx_mock.post().mock(
-        return_value=httpx.Response(
-            status_code=httpx.codes.OK,
-            text=get_fixture("trac-get-ticket-changelog-response.json"),
-        )
-    )
+    respx_mock.post().respond(text=get_fixture("trac-get-ticket-changelog-response.json"))
 
     changelog = api_client.get_ticket_changelog(1)
     assert respx_mock.calls.last.request.content == b'{"id":null,"method":"ticket.changeLog","params":[1]}'
@@ -113,12 +97,7 @@ def test_get_ticket_changelog(api_client: ApiClient, respx_mock: respx.mock):
 
 
 def test_get_ticket(api_client: ApiClient, respx_mock: respx.mock):
-    respx_mock.post().mock(
-        return_value=httpx.Response(
-            status_code=httpx.codes.OK,
-            text=get_fixture("trac-get-ticket-response.json"),
-        )
-    )
+    respx_mock.post().respond(text=get_fixture("trac-get-ticket-response.json"))
 
     assert api_client.get_ticket(1) == TracTicketProperties(
         id=1,
@@ -145,12 +124,7 @@ def test_get_ticket(api_client: ApiClient, respx_mock: respx.mock):
 
 
 def test_get_ticket_last_field_change(api_client: ApiClient, respx_mock: respx.mock):
-    respx_mock.post().mock(
-        return_value=httpx.Response(
-            status_code=httpx.codes.OK,
-            text=get_fixture("trac-get-ticket-changelog-response.json"),
-        )
-    )
+    respx_mock.post().respond(text=get_fixture("trac-get-ticket-changelog-response.json"))
 
     last_comment = api_client.get_ticket_last_field_change(1, "comment")
     assert last_comment == TracTicketChangelogEntry(
