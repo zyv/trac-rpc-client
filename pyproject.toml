@@ -5,7 +5,6 @@ readme = "README.md"
 authors = [
     { name = "Yury V. Zaytsev", email = "yury@shurup.com" }
 ]
-repository = "https://github.com/zyv/trac-rpc-client"
 keywords = ["trac", "rpc", "api", "pydantic", "httpx"]
 license = "MIT"
 classifiers = [
@@ -32,6 +31,9 @@ dev = [
     "respx",
     "ruff",
 ]
+
+[project.urls]
+Repository = "https://github.com/zyv/trac-rpc-client"
 
 [build-system]
 requires = ["hatchling"]
