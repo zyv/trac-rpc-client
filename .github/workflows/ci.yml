@@ -43,7 +43,7 @@ jobs:
         env:
           TRAC_ENV: trac-test
         run: |
-          uv tool install --with passlib trac==${{ env.TRAC_VERSION }}
+          uv tool install --with passlib --with setuptools trac==${{ env.TRAC_VERSION }}
 
           uvx --from trac trac-admin ${{ env.TRAC_ENV }} initenv 'Test Project' sqlite:db/trac.db
 
