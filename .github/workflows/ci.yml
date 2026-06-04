@@ -7,6 +7,7 @@ on:
   pull_request:
 
 env:
+  # Remove setuptools pin when upgrading to 1.6.1: https://trac.edgewall.org/ticket/13606
   TRAC_VERSION: 1.6
   TRAC_XMLRPC_BRANCH: https://trac-hacks.org/svn/xmlrpcplugin/trunk/
 
